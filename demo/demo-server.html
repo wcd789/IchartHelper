@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>demo.java</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<style type="text/css">
+<!--
+body {color: #000000; background-color: #ffffff; font-family: Monospaced}
+pre {color: #000000; background-color: #ffffff; font-family: Monospaced}
+table {color: #000000; background-color: #e9e8e2; font-family: Monospaced}
+.ST1 {font-family: Monospaced; font-weight: bold}
+.ST2 {font-family: Monospaced; font-style: italic}
+.comment {color: #969696}
+.ST0 {color: #969696; font-family: Monospaced; font-weight: bold}
+.keyword-directive {color: #0000e6}
+.character {color: #ce7b00}
+.status-bar-bold {color: #ff0000}
+-->
+</style>
+</head>
+<body>
+<pre>
+  1 <span class="comment">/*</span>
+  2 <span class="comment"> * To change this template, choose Tools | Templates</span>
+  3 <span class="comment"> * and open the template in the editor.</span>
+  4 <span class="comment"> */</span>
+  5 <span class="keyword-directive">package</span> domain.demo;
+  6 
+  7 <span class="keyword-directive">import</span> java.io.<span class="status-bar-bold">IOException</span>;
+  8 <span class="keyword-directive">import</span> java.util.<span class="status-bar-bold">ArrayList</span>;
+  9 <span class="keyword-directive">import</span> java.util.<span class="status-bar-bold">Arrays</span>;
+ 10 <span class="keyword-directive">import</span> java.util.List;
+ 11 <span class="keyword-directive">import</span> kit.ichart.<span class="status-bar-bold">Area2D</span>;
+ 12 <span class="keyword-directive">import</span> kit.ichart.<span class="status-bar-bold">IchartNVsCL</span>;
+ 13 
+ 14 <span class="comment">/**</span>
+ 15 <span class="comment"> * </span><span class="ST0">ichart</span> <span class="ST0">help示例</span><span class="ST0">-</span><span class="ST0">服务端</span>
+ 16 <span class="comment"> * </span><span class="ST0">本代码的效果见</span><span class="ST0">http</span><span class="ST0">://</span><span class="ST0">www</span><span class="ST0">.</span><span class="ST0">ichartjs</span><span class="ST0">.</span><span class="ST0">com</span><span class="ST0">/</span><span class="ST0">samples</span><span class="ST0">/</span><span class="ST0">index</span><span class="ST0">.</span><span class="ST0">html</span><span class="ST0">?</span><span class="ST0">page</span><span class="ST0">=</span><span class="ST0">area2d_02</span><span class="ST0">.</span><span class="ST0">html</span><span class="ST0">&amp;</span><span class="ST0">pageno</span><span class="comment">=0</span>
+ 17 <span class="comment"> *</span>
+ 18 <span class="comment"> * </span><span class="ST0">@author</span> <span class="comment">weichengdong</span>
+ 19  <span class="comment">*/</span>
+ 20 <span class="keyword-directive">public</span> <span class="keyword-directive">class</span> <span class="ST1">demo</span> {
+ 21 
+ 22     <span class="comment">/**</span>
+ 23 <span class="comment">     * </span>
+ 24 <span class="comment">     * </span><span class="ST0">@return</span> 
+ 25      <span class="comment">*/</span>
+ 26     <span class="keyword-directive">public</span> <span class="status-bar-bold">String</span> <span class="ST1">getDomoCurve</span>() {
+ 27         <span class="keyword-directive">try</span> {
+ 28 
+ 29             List&lt;<span class="status-bar-bold">Object</span>&gt; valuesSH = <span class="keyword-directive">this</span>.getValuesSH();<span class="comment">//模拟生成上海的数据（实际应用可能来时数据库）</span>
+ 30             List&lt;<span class="status-bar-bold">Object</span>&gt; valuesBJ = <span class="keyword-directive">this</span>.getValuesBJ();
+ 31             List&lt;<span class="status-bar-bold">String</span>&gt; labels = <span class="keyword-directive">this</span>.getLabels();<span class="comment">//模拟生成labels标签</span>
+ 32 
+ 33             List&lt;<span class="status-bar-bold">IchartNVsCL</span>&gt; nVsCLs = <span class="keyword-directive">new</span> ArrayList&lt;<span class="status-bar-bold">IchartNVsCL</span>&gt;();
+ 34             nVsCLs.add(<span class="keyword-directive">new</span> IchartNVsCL(<span class="character">&quot;</span><span class="character">上海</span><span class="character">&quot;</span>, valuesSH, <span class="character">&quot;</span><span class="character">#aad0db</span><span class="character">&quot;</span>, 2));
+ 35             nVsCLs.add(<span class="keyword-directive">new</span> IchartNVsCL(<span class="character">&quot;</span><span class="character">北京</span><span class="character">&quot;</span>, valuesBJ, <span class="character">&quot;</span><span class="character">#f68f70</span><span class="character">&quot;</span>, 2));
+ 36             <span class="comment">//new IchartNVsCL(...)有几个重载方法,区别在于如果不指定line_width默认为2</span>
+ 37             <span class="comment">//不指定color将会随机生成一个颜色</span>
+ 38             <span class="comment">//1.public IchartNVsCL(String name, List&lt;Object&gt; values, String color, int line_width) </span>
+ 39             <span class="comment">//2.public IchartNVsCL(String name, List&lt;Object&gt; values, String color)</span>
+ 40             <span class="comment">//3. public IchartNVsCL(String name, List&lt;Object&gt; values)</span>
+ 41 
+ 42             <span class="comment">//以下两行代码会生成json代码,如下（以下部分icharhelp帮你完成，实际上就这两句话，简单吧）</span>
+ 43             <span class="status-bar-bold">Area2D</span> area2D = <span class="keyword-directive">new</span> Area2D(nVsCLs, labels);
+ 44             <span class="keyword-directive">return</span> area2D.toIchartJson();
+ 45         } <span class="keyword-directive">catch</span> (<span class="status-bar-bold">IOException</span> ex) {
+ 46             <span class="keyword-directive">return</span> <span class="character">&quot;&quot;</span>;
+ 47         }
+ 48     }
+ 49 
+ 50     <span class="comment">/*{data: [</span>
+ 51 <span class="comment">     {</span>
+ 52 <span class="comment">     name : &#39;上海&#39;,</span>
+ 53 <span class="comment">     value:[4,16,18,24,32,36,38,38,36,26,20,14],</span>
+ 54 <span class="comment">     color:&#39;#aad0db&#39;,</span>
+ 55 <span class="comment">     line_width:2</span>
+ 56 <span class="comment">     },</span>
+ 57 <span class="comment">     {</span>
+ 58 <span class="comment">     name : &#39;北京&#39;,</span>
+ 59 <span class="comment">     value:[-9,1,12,20,26,30,32,29,22,12,0,-6],</span>
+ 60 <span class="comment">     color:&#39;#f68f70&#39;,</span>
+ 61 <span class="comment">     line_width:2</span>
+ 62 <span class="comment">     }</span>
+ 63 <span class="comment">     ];</span>
+ 64     
+ 65 <span class="comment">     labels: [&quot;01月&quot;,&quot;02月&quot;,&quot;03月&quot;,&quot;04月&quot;,&quot;05月&quot;,&quot;06月&quot;,&quot;07月&quot;,&quot;08月&quot;,&quot;09月&quot;,&quot;10月&quot;,&quot;11月&quot;,&quot;12月&quot;]</span>
+ 66 <span class="comment">     } */</span>
+ 67     <span class="comment">/**</span>
+ 68 <span class="comment">     * </span><span class="ST0">模拟生成labels</span> <span class="ST0">主要生成页面数据</span> <span class="ST0">var</span> <span class="ST0">labels</span><span class="ST0"> =</span>
+ 69 <span class="comment">     * </span><span class="ST0">[&quot;01</span><span class="ST0">月</span><span class="ST0">&quot;,&quot;02</span><span class="ST0">月</span><span class="ST0">&quot;,&quot;03</span><span class="ST0">月</span><span class="ST0">&quot;,&quot;04</span><span class="ST0">月</span><span class="ST0">&quot;,&quot;05</span><span class="ST0">月</span><span class="ST0">&quot;,&quot;06</span><span class="ST0">月</span><span class="ST0">&quot;,&quot;07</span><span class="ST0">月</span><span class="ST0">&quot;,&quot;08</span><span class="ST0">月</span><span class="ST0">&quot;,&quot;09</span><span class="ST0">月</span><span class="ST0">&quot;,&quot;10</span><span class="ST0">月</span><span class="ST0">&quot;,&quot;11</span><span class="ST0">月</span><span class="ST0">&quot;,&quot;12</span><span class="ST0">月</span><span class="comment">&quot;];</span>
+ 70 <span class="comment">     *</span>
+ 71 <span class="comment">     * </span><span class="ST0">@return</span>
+ 72      <span class="comment">*/</span>
+ 73     <span class="keyword-directive">private</span> List&lt;<span class="status-bar-bold">String</span>&gt; <span class="ST1">getLabels</span>() {
+ 74         List&lt;<span class="status-bar-bold">String</span>&gt; lables = <span class="keyword-directive">new</span> ArrayList&lt;<span class="status-bar-bold">String</span>&gt;();
+ 75         <span class="status-bar-bold">String</span>[] labelstr = {<span class="character">&quot;</span><span class="character">01月</span><span class="character">&quot;</span>, <span class="character">&quot;</span><span class="character">02月</span><span class="character">&quot;</span>, <span class="character">&quot;</span><span class="character">03月</span><span class="character">&quot;</span>, <span class="character">&quot;</span><span class="character">04月</span><span class="character">&quot;</span>, <span class="character">&quot;</span><span class="character">05月</span><span class="character">&quot;</span>, <span class="character">&quot;</span><span class="character">06月</span><span class="character">&quot;</span>, <span class="character">&quot;</span><span class="character">07月</span><span class="character">&quot;</span>, <span class="character">&quot;</span><span class="character">08月</span><span class="character">&quot;</span>, <span class="character">&quot;</span><span class="character">09月</span><span class="character">&quot;</span>, <span class="character">&quot;</span><span class="character">10月</span><span class="character">&quot;</span>, <span class="character">&quot;</span><span class="character">11月</span><span class="character">&quot;</span>, <span class="character">&quot;</span><span class="character">12月</span><span class="character">&quot;</span>};
+ 76         lables.addAll(<span class="status-bar-bold">Arrays</span>.<span class="ST2">asList</span>(labelstr));
+ 77         <span class="keyword-directive">return</span> lables;
+ 78     }
+ 79 
+ 80     <span class="comment">/**</span>
+ 81 <span class="comment">     * </span><span class="ST0">模拟生成上海数据</span> <span class="ST0">主要生成页面</span><span class="comment"> [4,16,18,24,32,36,38,38,36,26,20,14]</span>
+ 82 <span class="comment">     *</span>
+ 83 <span class="comment">     * </span><span class="ST0">@return</span>
+ 84      <span class="comment">*/</span>
+ 85     <span class="keyword-directive">private</span> List&lt;<span class="status-bar-bold">Object</span>&gt; <span class="ST1">getValuesSH</span>() {
+ 86         List&lt;<span class="status-bar-bold">Object</span>&gt; valuesSH = <span class="keyword-directive">new</span> ArrayList&lt;<span class="status-bar-bold">Object</span>&gt;();
+ 87         <span class="keyword-directive">int</span>[] values = {4, 16, 18, 24, 32, 36, 38, 38, 36, 26, 20, 14};
+ 88         valuesSH.addAll(<span class="status-bar-bold">Arrays</span>.<span class="ST2">asList</span>(values));
+ 89         <span class="keyword-directive">return</span> valuesSH;
+ 90     }
+ 91 
+ 92     <span class="comment">/**</span>
+ 93 <span class="comment">     * </span><span class="ST0">模拟生成上海数据</span> <span class="ST0">主要生成页面</span><span class="comment"> [4,16,18,24,32,36,38,38,36,26,20,14]</span>
+ 94 <span class="comment">     *</span>
+ 95 <span class="comment">     * </span><span class="ST0">@return</span>
+ 96      <span class="comment">*/</span>
+ 97     <span class="keyword-directive">private</span> List&lt;<span class="status-bar-bold">Object</span>&gt; <span class="ST1">getValuesBJ</span>() {
+ 98         List&lt;<span class="status-bar-bold">Object</span>&gt; valuesBJ = <span class="keyword-directive">new</span> ArrayList&lt;<span class="status-bar-bold">Object</span>&gt;();
+ 99         <span class="keyword-directive">int</span>[] values = {-9, 1, 12, 20, 26, 30, 32, 29, 22, 12, 0, -6};
+100         valuesBJ.addAll(<span class="status-bar-bold">Arrays</span>.<span class="ST2">asList</span>(values));
+101         <span class="keyword-directive">return</span> valuesBJ;
+102     }
+103 }
+104 
+</pre></body>
+</html>
